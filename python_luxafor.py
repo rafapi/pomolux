@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 '''
-Define the interaction with the Luxafor Flag.
+Defines an API for the Luxafor Flag.
 Primarly aimed to be used along the pomodory app,
 but it can also be used as a standalone app.
 '''
@@ -29,7 +29,7 @@ class LuxaforDev(object):
         try:
             self.dev.open(0x04d8, 0xf372)
         except OSError as err:
-            print('Exiting device with error: {}'.format(err))
+            print('Not activating the Luxafor Flag due to: {}'.format(err))
         return self.dev
 
     def write(self, values):
@@ -67,12 +67,21 @@ class LuxaforDev(object):
         self.write(self.turn_off)
 
     def work(self):
+        '''
+        Turn all LEDs red
+        '''
         self.write(self.red)
 
     def rest(self):
+        '''
+        Turn all LEDs orange
+        '''
         self.write(self.orange)
 
     def long_rest(self):
+        '''
+        Turn all LEDs green
+        '''
         self.write(self.green)
 
     commands = {
@@ -88,24 +97,19 @@ class LuxaforDev(object):
                 description='Luxafor Flag controller',
                 conflict_handler='resolve')
         parser.add_argument(
-                'mode', help='Flag colour. It represents the busy state',
+                '--mode', default='work',
+                help='Flag colour mode. It represents a user busy status',
                 choices=['work', 'rest', 'long_rest', 'off'])
-        parser.add_argument(
-                '-m', '--minutes', '--min', type=int,
-                help='additional amount of minutes to wait for')
-        parser.add_argument(
-                '-h', '--hours', type=int,
-                help='additional amount of hours to wait for')
         return parser
 
-    def select_args(self, arg):
-        if arg in self.commands:
-            func = self.commands[arg]
+    def select_args(self, **arg):
+        m = arg['mode']
+        if m in self.commands:
+            func = self.commands[m]
             func(self)
 
 
 if __name__ == '__main__':
     luxdev = LuxaforDev()
-    arg = luxdev.command_line_parser().parse_args()
-    arg = arg.mode
-    luxdev.select_args(arg)
+    args = luxdev.command_line_parser().parse_args()
+    luxdev.select_args(**vars(args))
