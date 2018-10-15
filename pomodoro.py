@@ -121,6 +121,7 @@ def use_luxafor(mode):
 
 
 def pomodoro(**args):
+    use_luxafor('off')
     twork, trest, long_rest, repeat = (
             args['w']*60, args['r']*60, args['l']*60, args['n'])
     notify('Banner', 'Note: press `s` to mute/unmute', force=True)
