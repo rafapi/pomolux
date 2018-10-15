@@ -2,6 +2,8 @@
 ### Pomodoro timer with batteries.
 It randomly picks and runs a playlist along with the timer; the dafault music source comes from `musicforprogramming.net`. When present a Luxafor Flag is ran according to the user's busy state.
 
+`Tested on MacOS 10.11`
+
 `All the modules can also be ran standalone.`
 
 ## Pomodoro timer
@@ -12,6 +14,7 @@ It randomly picks and runs a playlist along with the timer; the dafault music so
 
 ## Python API for the Luxafor Flag
 
+* It requires the HID API.
 * Run `./python_luxafor.py --help` for a quick list of options.
 * Alternatively instantiate the LuxaforDev class and send the bytes list of your choice to the device:
 ``` Python
