@@ -1,8 +1,8 @@
 # PomoLux
 ### Pomodoro timer with batteries.
-> It randomly picks and runs along the timer a playlist from `musicforprogramming.net`; and when present it sets a Luxafor Flag according to the user's busy state.
+> It randomly picks and runs a playlist along with the timer; the dafault music source comes from `musicforprogramming.net`. When present a Luxafor Flag is ran according to the user's busy state.
 
-All the present modules can be ran standalone as well as along the `pomodoro timer`.
+> All the modules can also be ran standalone.
 
 ## Pomodoro timer
 
