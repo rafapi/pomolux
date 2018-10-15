@@ -33,4 +33,4 @@ lux.write([6, 5, 1, 0, 0, 0, 0])
 
 ### Other requirements
 
-* mpg123 must be installed at the system level (e.g. brew install mpg123)
+* `mpg123` must be installed at the system level (e.g. brew install mpg123)
