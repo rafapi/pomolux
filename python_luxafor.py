@@ -29,7 +29,8 @@ class LuxaforDev(object):
         try:
             self.dev.open(0x04d8, 0xf372)
         except OSError as err:
-            print('Not activating the Luxafor Flag due to: {}'.format(err))
+            print('Luxafor Flag not present: {}'.format(err))
+            pass
         return self.dev
 
     def write(self, values):
@@ -56,9 +57,11 @@ class LuxaforDev(object):
         - Green wave ([4,4,0,255,0,0,1,10])
 
         '''
-        device = self.setup_device()
-        device.write(values)
-        device.close()
+        try:
+            device = self.setup_device()
+            device.write(values)
+        except ValueError as err:
+            device.close()
 
     def off(self):
         '''
