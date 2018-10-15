@@ -2,7 +2,7 @@
 ### Pomodoro timer with batteries.
 > It randomly picks and runs a playlist along with the timer; the dafault music source comes from `musicforprogramming.net`. When present a Luxafor Flag is ran according to the user's busy state.
 
-> All the modules can also be ran standalone.
+`All the modules can also be ran standalone.`
 
 ## Pomodoro timer
 
