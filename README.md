@@ -27,9 +27,9 @@ lux.write([6, 5, 1, 0, 0, 0, 0])
 
 ### Non-core Python libraries required
 
-* feedparser
-* termcolor
-* hidapi (make sure `hid` and `pyhidapi` are not in your python site-packages path)
+* `feedparser`
+* `termcolor`
+* `hidapi` (make sure `hid` and `pyhidapi` are not in your python site-packages path)
 
 ### Other requirements
 
