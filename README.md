@@ -30,3 +30,7 @@ lux.write([6, 5, 1, 0, 0, 0, 0])
 * feedparser
 * termcolor
 * hidapi (make sure `hid` and `pyhidapi` are not in your python site-packages path)
+
+### Other requirements
+
+* mpg123 must be installed at the system level (e.g. brew install mpg123)
