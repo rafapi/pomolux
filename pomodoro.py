@@ -47,11 +47,12 @@ else:
 
 
 workdir = os.getcwd()
-work_tick = workdir + '/' + 'clock-ticking-4.mp3'
-rest_tick = workdir + '/' + 'clock-ticking-5.mp3'
-cycle_end = workdir + '/' + 'relax_sequence.mp3'
-alarm_cycle = workdir + '/' + 'game-sound-correct.mp3'
-alarm_end = workdir + '/' + 'game-sound-incorrect.mp3'
+audiodir = workdir + '/' + 'audio'
+work_tick = audiodir + '/' + 'clock-ticking-4.mp3'
+rest_tick = audiodir + '/' + 'clock-ticking-5.mp3'
+cycle_end = audiodir + '/' + 'relax_sequence.mp3'
+alarm_cycle = audiodir + '/' + 'game-sound-correct.mp3'
+alarm_end = audiodir + '/' + 'game-sound-incorrect.mp3'
 dev_null = subprocess.DEVNULL
 
 
