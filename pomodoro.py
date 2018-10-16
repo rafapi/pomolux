@@ -85,7 +85,7 @@ def notify(title, content, force=False):
 
 
 def play_track(track, duration=None, repeat='-1'):
-    "Plays the sound specified by `track` for `duration` time"
+    "Plays a `track` for a `duration` amount of time"
     cmd = ["mpg123", "-b", "2048", "--loop", repeat, track]
     try:
         proc = subprocess.Popen(
@@ -106,16 +106,9 @@ def play_track(track, duration=None, repeat='-1'):
 def use_luxafor(mode):
     if has_luxafor:
         lux = LuxaforDev()
-        if mode == 'work':
-            lux.work()
-        elif mode == 'rest':
-            lux.rest()
-        elif mode == 'l_rest':
-            lux.long_rest()
-        elif mode == 'off':
-            lux.off()
-        else:
-            print('Mode does not exist')
+        if mode in lux.modes:
+            led_mode = lux.modes[mode]
+            lux.select_led_mode(led_mode)
     else:
         print('No Luxafor')
         pass
@@ -144,7 +137,7 @@ def pomodoro(**args):
     play_track(cycle_end, long_rest)
     play_track(alarm_end, repeat='1')
     notify('Pomodoro', 'Cycle complete', force=True)
-    use_luxafor('l_rest')
+    use_luxafor('long_rest')
     return 0
 
 
