@@ -14,6 +14,9 @@ class LuxaforDev(object):
     '''
     Contains the functionallity for the Luxafor Flag
     '''
+    # Luxafor Flag IDs
+    vendor_id = 0x04d8
+    product_id = 0xf372
 
     # Main LED combinations. All performed with fading.
     green = [2, 255, 0, 255, 0, 20, 0]
@@ -23,15 +26,22 @@ class LuxaforDev(object):
     turn_off = [2, 255, 0, 0, 0, 20, 0]
 
     def __init__(self):
-        self.dev = hid.device(0x04d8, 0xf372)
+        self.dev = None
+
+    def is_connected(self):
+        if not hid.enumerate(self.vendor_id, self.product_id):
+            return False
+        return True
 
     def setup_device(self):
-        try:
-            self.dev.open(0x04d8, 0xf372)
-        except OSError as err:
-            print('Luxafor Flag not present: {}'.format(err))
-            pass
-        return self.dev
+        if self.is_connected():
+            self.dev = hid.device(self.vendor_id, self.product_id)
+            try:
+                self.dev.open(self.vendor_id, self.product_id)
+            except OSError as err:
+                print('Luxafor Flag not present: {}'.format(err))
+                pass
+            return self.dev
 
     def write(self, values):
         '''
@@ -57,11 +67,14 @@ class LuxaforDev(object):
         - Green wave ([4,4,0,255,0,0,1,10])
 
         '''
-        try:
-            device = self.setup_device()
-            device.write(values)
-        except ValueError as err:
-            device.close()
+        if self.is_connected():
+            try:
+                device = self.setup_device()
+                device.write(values)
+            except ValueError:
+                pass
+            else:
+                device.close()
 
     def off(self):
         '''
