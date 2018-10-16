@@ -29,23 +29,29 @@ class LuxaforDev(object):
         self.dev = None
 
     def is_connected(self):
+        '''
+        Checks whether the Luxafor Flag is found in the device list
+        '''
         if not hid.enumerate(self.vendor_id, self.product_id):
             return False
         return True
 
     def setup_device(self):
+        '''
+        Returns a device ready to receive data
+        '''
         if self.is_connected():
             self.dev = hid.device(self.vendor_id, self.product_id)
             try:
                 self.dev.open(self.vendor_id, self.product_id)
             except OSError as err:
-                print('Luxafor Flag not present: {}'.format(err))
+                print('Luxafor Flag not found: {}'.format(err))
                 pass
             return self.dev
 
     def write(self, values):
         '''
-        Send values to the device.
+        Sends LED values to the device.
 
         - setPattern:
             write([6,PATTERN,REPEAT,0,0,0,0])
@@ -96,7 +102,7 @@ class LuxaforDev(object):
                 conflict_handler='resolve')
         parser.add_argument(
                 '--mode', default='work',
-                help='Flag colour mode. It represents a user busy status',
+                help='Flag colour mode associated with user busy state',
                 choices=['work', 'rest', 'long_rest', 'off'])
         return parser
 
