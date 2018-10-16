@@ -76,35 +76,17 @@ class LuxaforDev(object):
             else:
                 device.close()
 
-    def off(self):
+    def select_led_mode(self, mode):
         '''
-        Turn off all LEDs
+        Selects LED colour associated to busy state
         '''
-        self.write(self.turn_off)
+        self.write(mode)
 
-    def work(self):
-        '''
-        Turn all LEDs red
-        '''
-        self.write(self.red)
-
-    def rest(self):
-        '''
-        Turn all LEDs orange
-        '''
-        self.write(self.orange)
-
-    def long_rest(self):
-        '''
-        Turn all LEDs green
-        '''
-        self.write(self.green)
-
-    commands = {
-            'off': off,
-            'work': work,
-            'rest': rest,
-            'long_rest': long_rest
+    modes = {
+            'off': turn_off,
+            'work': red,
+            'rest': orange,
+            'long_rest': green
             }
 
     @staticmethod
@@ -120,9 +102,9 @@ class LuxaforDev(object):
 
     def select_args(self, **arg):
         m = arg['mode']
-        if m in self.commands:
-            func = self.commands[m]
-            func(self)
+        if m in self.modes:
+            mode = self.modes[m]
+            self.select_led_mode(mode)
 
 
 if __name__ == '__main__':
