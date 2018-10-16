@@ -9,8 +9,10 @@ It randomly picks and runs a playlist along with the timer; the dafault music so
 `All the modules can also be used standalone.`
 
 ### Installation
-```git clone git@github.com:rafapi/ai4g-1018-pomolux.git
-pip install -r requirements.txt```
+```
+git clone git@github.com:rafapi/ai4g-1018-pomolux.git
+pip install -r requirements.txt
+```
 
 ## Pomodoro timer
 
