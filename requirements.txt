@@ -1,0 +1,6 @@
+feedparser==5.2.1
+hidapi==0.7.99.post21
+pync==2.0.3
+python-dateutil==2.7.3
+six==1.11.0
+termcolor==1.1.0
