@@ -10,7 +10,7 @@ import hid
 import argparse
 
 
-class LuxaforDev(object):
+class LuxaforDev:
     '''
     Contains the functionallity for the Luxafor Flag
     '''
@@ -25,8 +25,8 @@ class LuxaforDev(object):
     orange = [2, 255, 255, 100, 0, 20, 0]
     turn_off = [2, 255, 0, 0, 0, 20, 0]
 
-    def __init__(self):
-        self.dev = None
+    def __init__(self, dev=None):
+        self.dev = dev
 
     def is_connected(self):
         '''

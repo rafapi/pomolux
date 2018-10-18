@@ -67,6 +67,9 @@ def is_reachable(url):
 
 
 def select_music():
+    '''
+    Select a random playlist from `musicforprogramming.net`
+    '''
     url = 'musicforprogramming.net'
     feed_url = 'http://' + url + '/' + 'rss.php'
     if is_reachable(url):
@@ -78,6 +81,9 @@ def select_music():
 
 
 def notify(title, content, force=False):
+    '''
+    Handle notifications depending on whether pync is installed
+    '''
     if not has_pync or force:
         sys.stdout.write(str(content)+"\n")
     else:
@@ -85,7 +91,9 @@ def notify(title, content, force=False):
 
 
 def play_track(track, duration=None, repeat='-1'):
-    "Plays a `track` for a `duration` amount of time"
+    '''
+    Plays a `track` for a `duration` amount of time
+    '''
     cmd = ["mpg123", "-b", "2048", "--loop", repeat, track]
     try:
         proc = subprocess.Popen(
@@ -104,21 +112,19 @@ def play_track(track, duration=None, repeat='-1'):
 
 
 def use_luxafor(mode):
-    if has_luxafor:
-        lux = LuxaforDev()
+    if lux.is_connected():
         if mode in lux.modes:
             led_mode = lux.modes[mode]
             lux.select_led_mode(led_mode)
-    else:
-        print('No Luxafor')
-        pass
 
 
 def pomodoro(**args):
+    notify('Banner', 'Note: press `s` to mute/unmute\n', force=True)
+    if not lux.is_connected():
+        notify('Banner', 'Luxafor device not found', force=True)
     use_luxafor('off')
     twork, trest, long_rest, repeat = (
             args['w']*60, args['r']*60, args['l']*60, args['n'])
-    notify('Banner', 'Note: press `s` to mute/unmute', force=True)
     for _ in range(repeat-1):
         notify('Pomodoro', 'Work now')
         use_luxafor('work')
@@ -159,5 +165,6 @@ def cli_parser():
 
 
 if __name__ == "__main__":
+    lux = LuxaforDev()
     args = cli_parser().parse_args()
     pomodoro(**vars(args))
