@@ -8,6 +8,12 @@ It randomly picks and runs a playlist along with the timer; the dafault music so
 
 `All the modules can also be used standalone.`
 
+### Installation
+```
+git clone git@github.com:rafapi/ai4g-1018-pomolux.git
+pip install -r requirements.txt
+```
+
 ## Pomodoro timer
 
 * Clone this repo.
@@ -27,7 +33,7 @@ lux.off()
 lux.write([6, 5, 1, 0, 0, 0, 0])
 ```
 
-### Non-core Python libraries required
+### Non-core Python library requirements
 
 * `pync`
 * `feedparser`
