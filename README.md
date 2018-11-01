@@ -14,10 +14,25 @@ git clone git@github.com:rafapi/ai4g-1018-pomolux.git
 pip install -r requirements.txt
 ```
 
+### Installation for linux
+```
+# you might need to run this in a virtualenv
+# virtualenv -p python3 ~/venvs/pomolux
+# source ~/venvs/pomolux/bin/activate
+
+sudo apt-get install libudev1 libudev-dev libusb python-hidapi
+sudo apt-get install python-pip 
+sudo pip install -r requirements.txt
+sudo ./python_luxafor.py --mode work
+```
+
+
 ## Pomodoro timer
 
+**This only works for mac for now.**
+
 * Clone this repo.
-* Run `./pomodoro --help` for a quick list of options.
+* Run `./pomodoro.py --help` for a quick list of options.
 * Follow the instructions displayed to modify times and cycles to your liking.
 
 ## Python API for the Luxafor Flag
