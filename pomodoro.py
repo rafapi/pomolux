@@ -66,7 +66,7 @@ def is_reachable(url):
         return False
 
 
-def select_music():
+def random_playlist():
     '''
     Select a random playlist from `musicforprogramming.net`
     '''
@@ -90,14 +90,14 @@ def notify(title, content, force=False):
         Notifier.notify(content, title=title)
 
 
-def play_track(track, duration=None, repeat='-1'):
+def play_track(track, duration=None, repeat='inf'):
     '''
     Plays a `track` for a `duration` amount of time
     '''
-    cmd = ["mpg123", "-b", "2048", "--loop", repeat, track]
+    cmd = ["mpv", "--no-video", "--loop={}".format(repeat),
+           "--really-quiet", track]
     try:
-        proc = subprocess.Popen(
-                cmd, stdout=dev_null, stderr=subprocess.STDOUT)
+        proc = subprocess.Popen(cmd)
         if duration:
             timer(duration)
         else:
@@ -119,29 +119,29 @@ def use_luxafor(mode):
 
 
 def pomodoro(**args):
-    notify('Banner', 'Note: press `s` to mute/unmute\n', force=True)
+    notify('Banner', 'Note: press `m` to mute/unmute\n', force=True)
     if not lux.is_connected():
         notify('Banner', 'Luxafor device not found', force=True)
     use_luxafor('off')
-    twork, trest, long_rest, repeat = (
-            args['w']*60, args['r']*60, args['l']*60, args['n'])
+    twork, trest, long_rest, repeat, playlist = (
+            args['w']*60, args['r']*60, args['l']*60, args['n'], args['u'])
     for _ in range(repeat-1):
         notify('Pomodoro', 'Work now')
         use_luxafor('work')
-        play_track(select_music(), twork)
-        play_track(alarm_cycle, repeat='1')
+        play_track(playlist, twork)
+        play_track(alarm_cycle, repeat='no')
         notify('Pomodoro', 'Rest now')
         use_luxafor('rest')
         play_track(rest_tick, trest)
-        play_track(alarm_cycle, repeat='1')
+        play_track(alarm_cycle, repeat='no')
     notify('Pomodoro', 'Work now')
     use_luxafor('work')
-    play_track(select_music(), twork)
-    play_track(alarm_cycle, repeat='1')
+    play_track(playlist, twork)
+    play_track(alarm_cycle, repeat='no')
     notify('Pomodoro', 'Rest now')
     use_luxafor('rest')
     play_track(cycle_end, long_rest)
-    play_track(alarm_end, repeat='1')
+    play_track(alarm_end, repeat='no')
     notify('Pomodoro', 'Cycle complete', force=True)
     use_luxafor('long_rest')
     return 0
@@ -160,6 +160,8 @@ def cli_parser():
                         help='Long rest time in minutes')
     parser.add_argument('-n', type=int, default=4,
                         help='Numer of cycles')
+    parser.add_argument('-u', type=str, default=random_playlist(),
+                        help='Play from URL')
 
     return parser
 
