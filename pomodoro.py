@@ -55,6 +55,51 @@ alarm_cycle = audiodir + '/' + 'game-sound-correct.mp3'
 alarm_end = audiodir + '/' + 'game-sound-incorrect.mp3'
 dev_null = subprocess.DEVNULL
 
+banner = '''
+Keyboard Control (For more see: https://mpv.io/manual/master/#keyboard-control)
+----------------
+
+LEFT and RIGHT
+Seek backward/forward 5 seconds.
+Shift+arrow does a 1 second exact seek (see --hr-seek).
+
+UP and DOWN
+Seek forward/backward 1 minute.
+Shift+arrow does a 5 second exact seek (see  --hr-seek).
+
+[ and ]
+Decrease/increase current playback speed by 10%.
+
+{ and }
+Halve/double current playback speed.
+
+BACKSPACE
+Reset playback speed to normal.
+
+< and >
+Go backward/forward in the playlist.
+
+ENTER
+Go forward in the playlist.
+
+p / SPACE
+Pause (pressing again unpauses).
+
+q
+Stop playing and quit.
+
+Q
+Like q, but store the current playback position.
+Playing the same file later will resume at the old playback position.
+
+/ and *
+Decrease/increase volume.
+
+m
+Mute sound.
+-----------
+'''
+
 
 def is_reachable(url):
     try:
@@ -119,7 +164,7 @@ def use_luxafor(mode):
 
 
 def pomodoro(**args):
-    notify('Banner', 'Note: press `m` to mute/unmute\n', force=True)
+    notify('Banner', banner, force=True)
     if not lux.is_connected():
         notify('Banner', 'Luxafor device not found', force=True)
     use_luxafor('off')
